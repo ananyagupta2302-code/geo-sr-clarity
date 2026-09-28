@@ -249,3 +249,20 @@ button { cursor: pointer; }
 @media (max-width: 780px) { .sidebar { width: 250px; transform: translateX(-100%); transition: transform .25s ease; }.sidebar-open { transform: translateX(0); }.sidebar-brand > span, .nav-item span { display: inline; }.nav-item { justify-content: flex-start; padding: 0 12px; }.sidebar-bottom { display: block; }.sidebar-scrim { position: fixed; inset: 0; z-index: 29; background: oklch(0.06 0.02 250 / 70%); }.dashboard-main { margin-left: 0; }.topbar-brand { display: flex; align-items: center; gap: 7px; }.mobile-brand-icon { display: grid; place-items: center; color: var(--primary); }.top-grid { grid-template-columns: 1fr; }.map-card { height: 340px; }.workflow-panel { height: auto; min-height: 330px; }.output-panel { grid-template-columns: 1fr 1fr; }.topbar { height: auto; min-height: 58px; flex-wrap: wrap; padding: 9px 12px; }.topbar-actions { flex: 1; justify-content: flex-end; }.status-badge { display: none; } }
 @media (max-width: 580px) { .dashboard-content { padding: 9px; }.dashboard-grid { gap: 9px; }.lower-grid { margin-top: 9px; }.topbar { gap: 8px; }.topbar-title { width: 100%; }.topbar-actions { width: 100%; justify-content: space-between; }.topbar-brand { font-size: 15px; }.dataset-button { min-width: 0; width: 143px; }.search-wrap { flex: 1; width: auto; }.user-button span:not(.avatar), .user-button > svg { display: none; }.user-button { padding: 0; }.map-header { max-width: calc(100% - 88px); }.map-header-label { font-size: 10px; gap: 3px; padding: 0 5px; }.map-location { max-width: 135px; font-size: 10px; gap: 3px; }.mini-map { width: 72px; height: 60px; }.map-card { height: 320px; }.output-panel { display: block; }.confidence-section { border-top: 1px solid var(--line); border-left: 0; }.confidence-content { justify-content: space-around; padding-bottom: 12px; }.comparison-panel { height: 270px; }.comparison-stage { height: 224px; }.metrics-panel { height: auto; }.metric-card { height: 115px; }.applications-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 5px; }.application-card { min-width: 144px; flex: 0 0 144px; scroll-snap-align: start; }.validation-body { grid-template-columns: 1fr; }.validation-scores { display: grid; grid-template-columns: repeat(3,1fr) auto; align-items: center; }.validation-scores div { flex-direction: column; }.validation-thumbs .image-viewer, .difference-view { height: 86px; } }
 @media (max-width: 390px) { .map-header-label { max-width: 137px; overflow: hidden; }.map-location { max-width: 100px; }.workflow-steps { gap: 1px; padding-left: 6px; padding-right: 6px; }.workflow-step strong { font-size: 10px; }.workflow-step small { font-size: 8px; }.workflow-ai small { font-size: 7px; }.model-options { gap: 3px; }.model-option { font-size: 9px; padding: 0 3px; gap: 3px; }.validation-scores { grid-template-columns: repeat(3,1fr); }.match-badge { grid-column: 1/-1; }.validation-panel { padding-bottom: 10px; } }
+/* Keep the three-panel operational overview intact until compact laptop widths. */
+@media (min-width: 1151px) and (max-width: 1400px) {
+  .top-grid { grid-template-columns: minmax(0, 1.78fr) minmax(275px, .99fr) minmax(207px, .68fr); }
+  .output-panel { grid-column: auto; height: 344px; min-height: 0; display: block; }
+  .output-panel > .card-heading { grid-column: auto; }
+  .output-info { max-width: none; }
+  .confidence-section { border-top: 1px solid var(--line); border-left: 0; }
+  .confidence-content { justify-content: space-between; gap: 5px; }
+  .lower-grid { grid-template-columns: minmax(0, 1.61fr) minmax(330px, 1fr); }
+}
+@media (max-width: 780px) {
+  .sidebar.sidebar-open { transform: translateX(0); }
+}
+@media (min-width: 781px) {
+  .topbar-brand { display: none; }
+  .topbar-subtitle { display: inline; }
+}
