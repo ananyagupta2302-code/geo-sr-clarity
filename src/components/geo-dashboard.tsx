@@ -1,4 +1,5 @@
 import { useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
+import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import {
   Activity, ArrowDownToLine, ArrowLeftRight, ArrowRight, BrainCircuit, Check, CheckCircle2,
@@ -38,18 +39,18 @@ function CardHeading({ children, icon: Icon }: { children: React.ReactNode; icon
   return <div className="card-heading">{Icon && <Icon className="size-4 text-primary" />}<h2>{children}</h2></div>;
 }
 
-function Sidebar({ active, onNavigate, open, onClose }: { active: string; onNavigate: (name: string) => void; open: boolean; onClose: () => void }) {
+export function Sidebar({ active, onNavigate, open, onClose }: { active: string; onNavigate: (name: string) => void; open: boolean; onClose: () => void }) {
   return <>
     {open && <div className="sidebar-scrim lg:hidden" onClick={onClose} />}
     <aside className={cn("sidebar", open && "sidebar-open")}>
       <div className="sidebar-brand"><div className="brand-mark"><Earth size={24} strokeWidth={2.1} /></div><span>GeoSR Intelligence</span><Button variant="ghost" size="icon" className="ml-auto lg:hidden" onClick={onClose} aria-label="Close menu"><X /></Button></div>
-      <nav className="sidebar-nav" aria-label="Main navigation">{navigation.map(({ name, icon: Icon }) => <Button key={name} variant="ghost" className={cn("nav-item", active === name && "nav-active")} onClick={() => { onNavigate(name); onClose(); }}><Icon size={18} strokeWidth={1.8} /><span>{name}</span></Button>)}</nav>
+      <nav className="sidebar-nav" aria-label="Main navigation">{navigation.map(({ name, icon: Icon }) => name === "Super Resolution" ? <Button key={name} asChild variant="ghost" className={cn("nav-item", active === name && "nav-active")}><Link to="/super-resolution" onClick={onClose}><Icon size={18} strokeWidth={1.8} /><span>{name}</span></Link></Button> : <Button key={name} variant="ghost" className={cn("nav-item", active === name && "nav-active")} onClick={() => { onNavigate(name); onClose(); }}><Icon size={18} strokeWidth={1.8} /><span>{name}</span></Button>)}</nav>
       <div className="sidebar-bottom"><div className="project-note"><div className="project-identity"><Trophy size={19} /><div><strong>SIH 2026</strong><small>PS No. 26142</small></div></div><p className="project-title">Deep Learning Based Super Resolution Mapping (SRM) from Medium Resolution Satellite Imageries</p><div className="project-divider" /><p className="project-description">Enhancing satellite imagery from ~10m to &lt;4m using AI for better geospatial insights.</p><Satellite className="project-satellite" size={28} strokeWidth={1.3} /><div className="project-tagline">Sharper Images <span>|</span> Better Decisions</div></div></div>
     </aside>
   </>;
 }
 
-function TopNavbar({ onMenu, dataset, setDataset, search, setSearch }: { onMenu: () => void; dataset: string; setDataset: (value: string) => void; search: string; setSearch: (value: string) => void }) {
+export function TopNavbar({ onMenu, dataset, setDataset, search, setSearch }: { onMenu: () => void; dataset: string; setDataset: (value: string) => void; search: string; setSearch: (value: string) => void }) {
   return <header className="topbar"><div className="topbar-title"><Button variant="ghost" size="icon" className="lg:hidden" onClick={onMenu} aria-label="Open menu"><Menu /></Button><div className="topbar-brand"><span className="mobile-brand-icon"><Earth size={18} /></span><strong>GeoSR Intelligence</strong></div><span className="topbar-divider" /><span className="topbar-subtitle">AI-Powered Super Resolution Mapping for a Sharper Tomorrow</span></div>
     <div className="topbar-actions"><DropdownMenu><DropdownMenuTrigger asChild><Button variant="surface" className="dataset-button"><Layers3 size={15} /><span>{dataset}</span><ChevronDown size={14} /></Button></DropdownMenuTrigger><DropdownMenuContent align="end">{["Sentinel-2 (10m)", "Landsat 8 (30m)", "Sentinel-1 (10m)"].map((value) => <DropdownMenuItem key={value} onClick={() => { setDataset(value); toast.info(`${value} selected`); }}>{value}</DropdownMenuItem>)}</DropdownMenuContent></DropdownMenu>
       <div className="search-wrap"><Search size={16} /><Input aria-label="Search location or AOI" placeholder="Search location / AOI..." value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter" && search.trim()) toast.info(`Searching for ${search.trim()}`); }} /></div>
@@ -95,10 +96,10 @@ function OutputInformation({ model }: { model: Model }) {
   return <section className="panel output-panel"><CardHeading>Output Information</CardHeading><div className="output-info"><div className="output-thumbnail"><img src={satelliteImage} alt="Output satellite thumbnail" width={1600} height={1104} /><span /></div><dl>{rows.map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl></div><ConfidenceIndicator /></section>;
 }
 
-function ImageViewer({ blurred = false, className = "" }: { blurred?: boolean; className?: string }) {
+export function ImageViewer({ blurred = false, className = "" }: { blurred?: boolean; className?: string }) {
   return <div className={cn("image-viewer", className, blurred && "image-blurred")}><img src={satelliteImage} alt={blurred ? "Lower-resolution satellite imagery" : "Enhanced satellite imagery"} width={1600} height={1104} /></div>;
 }
-function BeforeAfterComparison() {
+export function BeforeAfterComparison() {
   const [split, setSplit] = useState(50);
   const [zoom, setZoom] = useState(1);
   const [fullscreen, setFullscreen] = useState(false);
@@ -128,10 +129,10 @@ function GeospatialApplications() {
   const [selected, setSelected] = useState<Application | null>(null);
   return <section className="panel apps-panel"><div className="section-heading"><h2>Geospatial Applications</h2><p>Enable better decisions with high-resolution, AI-enhanced imagery</p></div><div className="applications-grid">{applications.map((app) => { const Icon = app.icon; return <div className={cn("application-card", `tone-${app.tone}`)} key={app.name}><div className="application-icon"><Icon size={24} strokeWidth={1.8} /></div><h3>{app.name}</h3><p>{app.description}</p><Button variant="link" className="details-link" onClick={() => setSelected(app)}>View Details <ArrowRight size={13} /></Button></div>; })}</div><Dialog open={!!selected} onOpenChange={(open) => { if (!open) setSelected(null); }}><DialogContent><DialogHeader><DialogTitle>{selected?.name}</DialogTitle><DialogDescription>{selected?.detail}</DialogDescription></DialogHeader><div className="detail-note"><CheckCircle2 size={17} /> Available for the current Kanpur area of interest</div></DialogContent></Dialog></section>;
 }
-function ValidationPanel({ onReport }: { onReport: () => void }) {
+export function ValidationPanel({ onReport }: { onReport: () => void }) {
   return <section className="panel validation-panel"><CardHeading>Validation Against High-Resolution Reference</CardHeading><div className="validation-body"><div className="validation-thumbs"><div><ImageViewer /><span>Output (SRM)</span></div><div><ImageViewer className="reference-view" /><span>Reference (HR)</span></div><div><div className="difference-view"><ImageViewer /><span className="difference-mesh" /></div><span>Difference Map</span></div></div><div className="validation-scores"><div><span>PSNR</span><strong>34.21 dB</strong></div><div><span>SSIM</span><strong>0.945</strong></div><div><span>RMSE</span><strong>0.032</strong></div><span className="match-badge"><Check size={13} /> Good Match</span></div></div><div className="validation-actions"><Button variant="default" onClick={() => toast.success("GeoTIFF export started")}><Download size={16} /> Export GeoTIFF</Button><Button variant="outline" onClick={onReport}>View Report</Button></div></section>;
 }
-function ReportModal({ open, onOpenChange, model }: { open: boolean; onOpenChange: (open: boolean) => void; model: Model }) {
+export function ReportModal({ open, onOpenChange, model }: { open: boolean; onOpenChange: (open: boolean) => void; model: Model }) {
   return <Dialog open={open} onOpenChange={onOpenChange}><DialogContent className="report-dialog"><DialogHeader><DialogTitle>Super Resolution Report</DialogTitle><DialogDescription>Kanpur, Uttar Pradesh · Sentinel-2 imagery · Processing complete</DialogDescription></DialogHeader><div className="report-summary"><div><span>Model</span><strong>{model}</strong></div><div><span>Input resolution</span><strong>10 m</strong></div><div><span>Output resolution</span><strong>~3.8 m</strong></div><div><span>Area of interest</span><strong>24.6 km²</strong></div><div><span>PSNR</span><strong>34.21 dB</strong></div><div><span>SSIM</span><strong>0.945</strong></div><div><span>RMSE</span><strong>0.032</strong></div><div><span>Confidence</span><strong>92%</strong></div></div><div className="report-result"><ClipboardCheck size={19} /> Good match against high-resolution reference</div></DialogContent></Dialog>;
 }
 
