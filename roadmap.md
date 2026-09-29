@@ -1,0 +1,3 @@
+- [ ] Add the Super Resolution route and reuse the current shell without changing Dashboard content.
+- [ ] Implement the reference-inspired panels and working frontend controls.
+- [ ] Add Compare and Validation destinations, then verify desktop and mobile rendering.
