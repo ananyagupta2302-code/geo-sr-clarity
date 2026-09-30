@@ -1,19 +1,13 @@
-import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { GeoAppShell } from "@/components/geo-app-shell";
-import { ValidationPanel, ReportModal } from "@/components/geo-dashboard";
+import { ValidationPage } from "@/components/validation-page";
 
 export const Route = createFileRoute("/validation")({
   head: () => ({ meta: [
-    { title: "Validation | GeoSR Intelligence" },
-    { name: "description", content: "Review super-resolution imagery against a high-resolution reference and inspect quality scores." },
-    { property: "og:title", content: "Validation | GeoSR Intelligence" },
-    { property: "og:description", content: "Review super-resolution imagery against a high-resolution reference and inspect quality scores." },
+    { title: "Validation & Scientific Fidelity | GeoSR Intelligence" },
+    { name: "description", content: "Compare super-resolved satellite output, high-resolution reference imagery, and error maps with scientific fidelity metrics for Kanpur." },
+    { property: "og:title", content: "Validation & Scientific Fidelity | GeoSR Intelligence" },
+    { property: "og:description", content: "Compare super-resolved satellite output, high-resolution reference imagery, and error maps with scientific fidelity metrics for Kanpur." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: ValidationPage,
 });
-function ValidationPage() {
-  const [open, setOpen] = useState(false);
-  return <GeoAppShell active="Validation"><main className="dashboard-content destination-page"><h1>Validation</h1><ValidationPanel onReport={() => setOpen(true)} /><ReportModal open={open} onOpenChange={setOpen} model="ESRGAN" /></main></GeoAppShell>;
-}
