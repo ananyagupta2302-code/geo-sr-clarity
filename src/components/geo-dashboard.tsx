@@ -23,7 +23,7 @@ const navigation = [
   { name: "Dashboard", icon: PanelsTopLeft }, { name: "Imagery", icon: ImageIcon },
   { name: "Super Resolution", icon: Sparkles }, { name: "Compare", icon: ArrowLeftRight },
   { name: "Analysis", icon: ChartNoAxesCombined }, { name: "Validation", icon: ShieldCheck },
-  { name: "Exports", icon: Download }, { name: "Settings", icon: Settings2 },
+  { name: "Export", icon: Download }, { name: "Settings", icon: Settings2 },
 ];
 const applications: Application[] = [
   { name: "Classification", description: "Land use / land cover mapping with higher accuracy.", detail: "Identify land cover categories across the area of interest, including built-up zones, water, vegetation, and agricultural land.", icon: BrainCircuit, tone: "teal" },
@@ -44,7 +44,10 @@ export function Sidebar({ active, onNavigate, open, onClose }: { active: string;
     {open && <div className="sidebar-scrim lg:hidden" onClick={onClose} />}
     <aside className={cn("sidebar", open && "sidebar-open")}>
       <div className="sidebar-brand"><div className="brand-mark"><Earth size={24} strokeWidth={2.1} /></div><span>GeoSR Intelligence</span><Button variant="ghost" size="icon" className="ml-auto lg:hidden" onClick={onClose} aria-label="Close menu"><X /></Button></div>
-      <nav className="sidebar-nav" aria-label="Main navigation">{navigation.map(({ name, icon: Icon }) => name === "Super Resolution" ? <Button key={name} asChild variant="ghost" className={cn("nav-item", active === name && "nav-active")}><Link to="/super-resolution" onClick={onClose}><Icon size={18} strokeWidth={1.8} /><span>{name}</span></Link></Button> : <Button key={name} variant="ghost" className={cn("nav-item", active === name && "nav-active")} onClick={() => { onNavigate(name); onClose(); }}><Icon size={18} strokeWidth={1.8} /><span>{name}</span></Button>)}</nav>
+      <nav className="sidebar-nav" aria-label="Main navigation">{navigation.map(({ name, icon: Icon }) => {
+        const route = name === "Super Resolution" ? "/super-resolution" : name === "Validation" ? "/validation" : name === "Export" ? "/export" : null;
+        return route ? <Button key={name} asChild variant="ghost" className={cn("nav-item", active === name && "nav-active")}><Link to={route} onClick={onClose}><Icon size={18} strokeWidth={1.8} /><span>{name}</span></Link></Button> : <Button key={name} variant="ghost" className={cn("nav-item", active === name && "nav-active")} onClick={() => { onNavigate(name); onClose(); }}><Icon size={18} strokeWidth={1.8} /><span>{name}</span></Button>;
+      })}</nav>
       <div className="sidebar-bottom"><div className="project-note"><div className="project-identity"><Trophy size={19} /><div><strong>SIH 2026</strong><small>PS No. 26142</small></div></div><p className="project-title">Deep Learning Based Super Resolution Mapping (SRM) from Medium Resolution Satellite Imageries</p><div className="project-divider" /><p className="project-description">Enhancing satellite imagery from ~10m to &lt;4m using AI for better geospatial insights.</p><Satellite className="project-satellite" size={28} strokeWidth={1.3} /><div className="project-tagline">Sharper Images <span>|</span> Better Decisions</div></div></div>
     </aside>
   </>;
@@ -140,6 +143,6 @@ export function GeoDashboard() {
   const [active, setActive] = useState("Dashboard"); const [menuOpen, setMenuOpen] = useState(false);
   const [dataset, setDataset] = useState("Sentinel-2 (10m)"); const [search, setSearch] = useState("");
   const [model, setModel] = useState<Model>("Swin Transformer"); const [reportOpen, setReportOpen] = useState(false);
-  function navigate(name: string) { setActive(name); if (name !== "Dashboard") { const targets: Record<string, string> = { Imagery: "map-section", "Super Resolution": "workflow-section", Compare: "comparison-section", Analysis: "metrics-section", Validation: "validation-section", Exports: "validation-section" }; const target = targets[name]; if (target) document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "center" }); if (name === "Settings") toast.info("Settings are not available in this preview"); } else window.scrollTo({ top: 0, behavior: "smooth" }); }
+  function navigate(name: string) { setActive(name); if (name !== "Dashboard") { const targets: Record<string, string> = { Imagery: "map-section", Compare: "comparison-section", Analysis: "metrics-section" }; const target = targets[name]; if (target) document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "center" }); if (name === "Settings") toast.info("Settings are not available in this preview"); } else window.scrollTo({ top: 0, behavior: "smooth" }); }
   return <TooltipProvider delayDuration={250}><div className="dashboard-shell"><Sidebar active={active} onNavigate={navigate} open={menuOpen} onClose={() => setMenuOpen(false)} /><div className="dashboard-main"><TopNavbar onMenu={() => setMenuOpen(true)} dataset={dataset} setDataset={setDataset} search={search} setSearch={setSearch} /><main className="dashboard-content"><div className="dashboard-grid top-grid"><div id="map-section"><AOIMap /></div><div id="workflow-section"><ProcessingWorkflow model={model} setModel={setModel} /></div><OutputInformation model={model} /></div><div className="dashboard-grid lower-grid"><div id="comparison-section"><BeforeAfterComparison /></div><div id="metrics-section"><QualityMetrics /></div><GeospatialApplications /><div id="validation-section"><ValidationPanel onReport={() => setReportOpen(true)} /></div></div></main></div><ReportModal open={reportOpen} onOpenChange={setReportOpen} model={model} /></div></TooltipProvider>;
 }
