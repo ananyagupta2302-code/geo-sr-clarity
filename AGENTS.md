@@ -12,3 +12,4 @@
 - Keep the GeoSR demo as a frontend-only dashboard with mock data; its screen is composed in `src/components/geo-dashboard.tsx` and served at `/`, so no data service is required.
 - Centralize dashboard visual roles and interaction styling in `src/styles.css`; reusable components consume those roles for consistent theming.
 - Keep the scientific Validation workspace as a separate frontend-only module using existing GeoSR shell and mock imagery, so Dashboard and Super Resolution remain independent.
+- Keep the Export workspace as a separate frontend-only module using the shared GeoSR shell and in-memory mock export history.

@@ -11,9 +11,9 @@ export function GeoAppShell({ active, children, subtitle }: { active: string; ch
   const navigate = useNavigate();
   function onNavigate(name: string) {
     if (name === "Settings") { toast.info("Settings are not available in this preview"); return; }
-    const destinations: Record<string, "/" | "/super-resolution" | "/compare" | "/validation"> = {
+    const destinations: Record<string, "/" | "/super-resolution" | "/compare" | "/validation" | "/export"> = {
       Dashboard: "/", Imagery: "/", "Super Resolution": "/super-resolution", Compare: "/compare",
-      Analysis: "/", Validation: "/validation", Exports: "/validation",
+      Analysis: "/", Validation: "/validation", Export: "/export",
     };
     const destination = destinations[name];
     if (destination) navigate({ to: destination });
