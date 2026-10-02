@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { toast } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Sidebar, TopNavbar } from "@/components/geo-dashboard";
 
@@ -10,10 +9,9 @@ export function GeoAppShell({ active, children, subtitle }: { active: string; ch
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   function onNavigate(name: string) {
-    if (name === "Settings") { toast.info("Settings are not available in this preview"); return; }
-    const destinations: Record<string, "/" | "/super-resolution" | "/compare" | "/validation" | "/export"> = {
+    const destinations: Record<string, "/" | "/super-resolution" | "/compare" | "/validation" | "/export" | "/settings"> = {
       Dashboard: "/", Imagery: "/", "Super Resolution": "/super-resolution", Compare: "/compare",
-      Analysis: "/", Validation: "/validation", Export: "/export",
+      Analysis: "/", Validation: "/validation", Export: "/export", Settings: "/settings",
     };
     const destination = destinations[name];
     if (destination) navigate({ to: destination });

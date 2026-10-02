@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as ExportRouteImport } from './routes/export'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SuperResolutionRouteImport } from './routes/super-resolution'
 import { Route as ValidationRouteImport } from './routes/validation'
 
@@ -30,6 +31,11 @@ const ExportRoute = ExportRouteImport.update({
   path: '/export',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SuperResolutionRoute = SuperResolutionRouteImport.update({
   id: '/super-resolution',
   path: '/super-resolution',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
   '/export': typeof ExportRoute
+  '/settings': typeof SettingsRoute
   '/super-resolution': typeof SuperResolutionRoute
   '/validation': typeof ValidationRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
   '/export': typeof ExportRoute
+  '/settings': typeof SettingsRoute
   '/super-resolution': typeof SuperResolutionRoute
   '/validation': typeof ValidationRoute
 }
@@ -60,19 +68,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
   '/export': typeof ExportRoute
+  '/settings': typeof SettingsRoute
   '/super-resolution': typeof SuperResolutionRoute
   '/validation': typeof ValidationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/compare' | '/export' | '/super-resolution' | '/validation'
+  fullPaths:
+    | '/'
+    | '/compare'
+    | '/export'
+    | '/settings'
+    | '/super-resolution'
+    | '/validation'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/compare' | '/export' | '/super-resolution' | '/validation'
+  to:
+    | '/'
+    | '/compare'
+    | '/export'
+    | '/settings'
+    | '/super-resolution'
+    | '/validation'
   id:
     | '__root__'
     | '/'
     | '/compare'
     | '/export'
+    | '/settings'
     | '/super-resolution'
     | '/validation'
   fileRoutesById: FileRoutesById
@@ -81,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompareRoute: typeof CompareRoute
   ExportRoute: typeof ExportRoute
+  SettingsRoute: typeof SettingsRoute
   SuperResolutionRoute: typeof SuperResolutionRoute
   ValidationRoute: typeof ValidationRoute
 }
@@ -108,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/super-resolution': {
       id: '/super-resolution'
       path: '/super-resolution'
@@ -129,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompareRoute: CompareRoute,
   ExportRoute: ExportRoute,
+  SettingsRoute: SettingsRoute,
   SuperResolutionRoute: SuperResolutionRoute,
   ValidationRoute: ValidationRoute,
 }

@@ -1,4 +1,6 @@
-- [ ] Add the Super Resolution route and reuse the current shell without changing Dashboard content.
-- [ ] Implement the reference-inspired panels and working frontend controls.
-- [ ] Add Compare and Validation destinations, then verify desktop and mobile rendering.
-- [ ] Complete the screenshot-inspired Validation page with synchronized imagery, metrics, traceability, and report actions.5. [ ] Add the reference-inspired Export workspace with dynamic configuration, summary, recent exports, and responsive checks.
+- [x] Add the Super Resolution route and reuse the current shell without changing Dashboard content.
+- [x] Implement the reference-inspired panels and working frontend controls.
+- [x] Add Compare and Validation destinations.
+- [x] Complete the screenshot-inspired Validation page with synchronized imagery, metrics, traceability, and report actions.
+- [x] Add the reference-inspired Export workspace with dynamic configuration, summary, and recent exports.
+- [ ] Add Settings with category navigation, saved preferences, reset, and responsive verification.

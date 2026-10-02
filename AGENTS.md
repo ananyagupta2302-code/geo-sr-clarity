@@ -13,3 +13,4 @@
 - Centralize dashboard visual roles and interaction styling in `src/styles.css`; reusable components consume those roles for consistent theming.
 - Keep the scientific Validation workspace as a separate frontend-only module using existing GeoSR shell and mock imagery, so Dashboard and Super Resolution remain independent.
 - Keep the Export workspace as a separate frontend-only module using the shared GeoSR shell and in-memory mock export history.
+- Keep Settings as a separate frontend-only module using the shared GeoSR shell and browser-local saved preferences, so other workspaces remain independent.
