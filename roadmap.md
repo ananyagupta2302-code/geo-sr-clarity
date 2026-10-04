@@ -4,3 +4,4 @@
 - [x] Complete the screenshot-inspired Validation page with synchronized imagery, metrics, traceability, and report actions.
 - [x] Add the reference-inspired Export workspace with dynamic configuration, summary, and recent exports.
 - [ ] Add Settings with category navigation, saved preferences, reset, and responsive verification.
+- [ ] Add Imagery Library with mock scenes, map, filtering, details, upload preview, and responsive verification.
