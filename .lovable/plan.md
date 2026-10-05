@@ -1,16 +1,19 @@
-# Export workspace
+# Compare Imagery workspace
 
 ## Build
-- Add a new `/export` page inside the existing GeoSR shell and make Export the active sidebar destination.
-- Recreate the reference layout with export tabs, four configuration sections, summary, recent exports, and GIS information notice.
-- Use the existing Kanpur imagery, shared controls, typography, colors, spacing, icons, dialogs, and toasts.
+- Replace the current basic `/compare` destination with a dedicated Compare Imagery module inside the existing GeoSR shell.
+- Match the supplied desktop reference with a dense central comparison workspace and fixed-width metrics rail, using the existing imagery, tokens, buttons, dialogs, typography, and icons.
+- Keep Dashboard, Imagery, Super Resolution, Validation, Export, and Settings independent and unchanged.
 
 ## Interactions
-- Keep export type, format, resolution, included options, AOI, bands, and filename in React state.
-- Update the summary and estimated size from those selections.
-- Simulate export preparation and completion, add the result to recent exports, and provide download notifications.
-- Add an AOI dialog and responsive desktop, tablet, and mobile layouts.
+- Add scene, location, resolution, and acquisition controls using realistic linked mock selections.
+- Support draggable swipe comparison, split view, overlay mode with opacity, zoom controls, fullscreen viewing, and selectable image previews.
+- Add Quantitative and Spectral tabs, report generation, GeoTIFF export feedback, notification and user menus through the shared header.
+
+## Responsive behavior
+- Keep the three-column desktop composition; stack the metrics rail below the viewer on tablets.
+- Collapse filters and preview cards cleanly on mobile while preserving a usable comparison surface and full-width export actions.
 
 ## Verification
-- Confirm the new route has unique page metadata and does not alter existing page content.
-- Check the desktop and mobile layouts, navigation, selection controls, dialog, and export flow in the live preview.
+- Resolve existing compile blockers without changing their page behavior.
+- Confirm route metadata, active navigation, controls, dialogs, toasts, desktop layout, and mobile layout in the live preview.
