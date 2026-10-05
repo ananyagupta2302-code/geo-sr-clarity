@@ -5,3 +5,4 @@
 - [x] Add the reference-inspired Export workspace with dynamic configuration, summary, and recent exports.
 - [ ] Add Settings with category navigation, saved preferences, reset, and responsive verification.
 - [ ] Add Imagery Library with mock scenes, map, filtering, details, upload preview, and responsive verification.
+- [ ] Add Compare Imagery with interactive viewing modes, metrics, exports, and responsive verification.
