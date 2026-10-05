@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { toast } from "sonner";
 import {
-  ArrowLeftRight, Bell, CalendarDays, ChartNoAxesCombined, Check, ChevronDown,
+  ArrowLeftRight, CalendarDays, ChartNoAxesCombined, Check, ChevronDown,
   Download, Expand, FileDown, Image as ImageIcon, Info, Layers3, MapPin,
   Minus, PanelLeftClose, PanelTop, Plus, ScanSearch, SlidersHorizontal,
   TrendingDown, TrendingUp,
@@ -91,7 +91,7 @@ function MetricsPanel({ tab, setTab }: { tab: MetricTab; setTab: (tab: MetricTab
 }
 
 export function CompareImageryPage() {
-  const [scene, setScene] = useState<Scene>(scenes[0]);
+  const [scene, setScene] = useState<Scene>({ id: "S2A_MSIL2A_20250415T053621", location: "Kanpur, Uttar Pradesh, India", resolution: "10 m → 2.5 m (4x)", date: "2025-04-15 05:36", image: kanpur });
   const [mode, setMode] = useState<ViewMode>("Split View");
   const [selected, setSelected] = useState<LayerId>("enhanced");
   const [opacity, setOpacity] = useState(70);

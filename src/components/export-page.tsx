@@ -80,7 +80,7 @@ export function ExportPage() {
   const [format, setFormat] = useState("GeoTIFF (.tif)");
   const [resolution, setResolution] = useState("< 4m (High-Res)");
   const [includes, setIncludes] = useState(["Geospatial Metadata (CRS, coordinates, etc.)", "Quality Metrics (PSNR, SSIM, RMSE, etc.)", "AOI Information"]);
-  const [aoi, setAoi] = useState(aoiOptions[0]);
+  const [aoi, setAoi] = useState("Kanpur, Uttar Pradesh, India");
   const [bands, setBands] = useState("All Bands (B2, B3, B4, B8)");
   const [filename, setFilename] = useState("Kanpur_SR_10m_to_4m_2026-09-24.tif");
   const [aoiOpen, setAoiOpen] = useState(false);

@@ -15,3 +15,4 @@
 - Keep the Export workspace as a separate frontend-only module using the shared GeoSR shell and in-memory mock export history.
 - Keep Settings as a separate frontend-only module using the shared GeoSR shell and browser-local saved preferences, so other workspaces remain independent.
 - Keep Imagery Library as an independent frontend-only module using the shared GeoSR shell and local mock scenes, so existing workspaces remain unchanged.
+- Keep Compare Imagery as an independent frontend-only module using the shared GeoSR shell and local mock imagery, so existing workspaces remain unchanged.
