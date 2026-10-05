@@ -68,7 +68,7 @@ function UploadImageryModal({ open, onOpenChange, onAdd }: { open: boolean; onOp
 }
 export function ImageryLibrary() {
   const [scenes, setScenes] = useState(initialScenes);
-  const [selectedId, setSelectedId] = useState(initialScenes[0].id);
+  const [selectedId, setSelectedId] = useState("S2A_MSIL2A_20250415T053621");
   const [query, setQuery] = useState("");
   const [dateRange, setDateRange] = useState("Last 3 Months");
   const [satellite, setSatellite] = useState("Sentinel-2");
@@ -87,5 +87,6 @@ export function ImageryLibrary() {
   const scene = filtered.find(item => item.id === selectedId) ?? filtered[0] ?? scenes.find(item => item.id === selectedId) ?? scenes[0];
   function run(kind: "preprocess" | "super-resolution") { setBusy(kind); toast.info(kind === "preprocess" ? "Pre-processing imagery..." : "Preparing imagery for super resolution..."); timer.current = setTimeout(() => { setBusy(null); toast.success(kind === "preprocess" ? "Pre-processing completed for selected scene" : "Imagery ready for super resolution"); if (kind === "super-resolution") navigate({ to: "/super-resolution" }); }, 1600); }
   function addFile(file: File) { if (!file.type.startsWith("image/")) { toast.error("Choose an image file"); return; } const url = URL.createObjectURL(file); uploadedUrls.current.push(url); const item: Scene = { id: `LOCAL_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9]/g,"_")}`, location: "Uploaded imagery", date: "2025-04-15 05:36", cloud: 0, status: "Ready", image: url, satellite: "Sentinel-2", coordinates: "26.4498° N, 80.3319° E" }; setScenes(previous => [item,...previous]); setQuery(""); setDateRange("All Dates"); setSatellite("All Satellites"); setSelectedId(item.id); setUploadOpen(false); toast.success(`${file.name} added to the preview`); }
+  if (!scene) return null;
   return <GeoAppShell active="Imagery"><main className="dashboard-content il-page"><div className="il-heading"><ImageIcon size={25} /><div><h1>Imagery Library</h1><p>Browse, manage and process satellite imagery for super resolution mapping.</p></div></div><div className="il-layout"><div className="il-main"><ImageryToolbar query={query} setQuery={setQuery} dateRange={dateRange} setDateRange={setDateRange} satellite={satellite} setSatellite={setSatellite} onUpload={() => setUploadOpen(true)} /><SatelliteMap scene={scene} focused={focused} /><ImageryGrid scenes={filtered} selectedId={scene.id} onSelect={id => { setSelectedId(id); setFocused(false); }} sort={sort} setSort={setSort} /></div><SceneDetails scene={scene} busy={busy} onMap={() => { setFocused(true); document.getElementById("imagery-map")?.scrollIntoView({ behavior: "smooth", block: "center" }); toast.info(`${scene.location} shown on map`); }} onPreprocess={() => run("preprocess")} onSuperResolution={() => run("super-resolution")} /></div><UploadImageryModal open={uploadOpen} onOpenChange={setUploadOpen} onAdd={addFile} /></main></GeoAppShell>;
 }
