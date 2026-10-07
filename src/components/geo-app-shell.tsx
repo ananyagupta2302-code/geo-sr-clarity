@@ -9,9 +9,9 @@ export function GeoAppShell({ active, children, subtitle }: { active: string; ch
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   function onNavigate(name: string) {
-    const destinations: Record<string, "/" | "/imagery" | "/super-resolution" | "/compare" | "/validation" | "/export" | "/settings"> = {
+    const destinations: Record<string, "/" | "/imagery" | "/super-resolution" | "/compare" | "/analysis" | "/validation" | "/export" | "/settings"> = {
       Dashboard: "/", Imagery: "/imagery", "Super Resolution": "/super-resolution", Compare: "/compare",
-      Analysis: "/", Validation: "/validation", Export: "/export", Settings: "/settings",
+      Analysis: "/analysis", Validation: "/validation", Export: "/export", Settings: "/settings",
     };
     const destination = destinations[name];
     if (destination) navigate({ to: destination });
